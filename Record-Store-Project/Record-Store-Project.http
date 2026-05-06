@@ -1,0 +1,6 @@
+@Record_Store_Project_HostAddress = http://localhost:5205
+
+GET {{Record_Store_Project_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
