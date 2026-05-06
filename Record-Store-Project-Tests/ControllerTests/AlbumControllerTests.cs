@@ -45,5 +45,18 @@ namespace Record_Store_Project_Tests.ControllerTests
 
             Assert.That(actual.StatusCode, Is.EqualTo(200));
         }
+
+        [Test]
+        public void AddNewAlbum_ShouldReturnStatusCode201_WhenPostingNewAlbum()
+        {
+            var album = new Album { Title = "Speak Now", Artist = "Taylor Swift", ReleaseYear = 2010, Genre = "Country", Stock = 13 };
+
+            _albumServiceMock.Setup(serv => serv.AddNewAlbum(album)).Returns(album);
+
+            var actual = (CreatedResult)_albumController.AddNewAlbum(album);
+
+            Assert.That(actual.StatusCode, Is.EqualTo(201));
+
+        }
     }
 }

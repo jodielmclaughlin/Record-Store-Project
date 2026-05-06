@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Record_Store_Project.Service;
+using Record_Store_Project.DataModels;
 
 namespace Record_Store_Project.Controllers
 {
@@ -26,6 +27,14 @@ namespace Record_Store_Project.Controllers
         {
             var albumId = _albumService.GetAlbumById(id);
             return Ok(albumId);
+        }
+
+        [HttpPost]
+        public IActionResult AddNewAlbum(Album album)
+        {
+            var newAlbum = _albumService.AddNewAlbum(album);
+            return Created("", newAlbum);
+
         }
     }
 }

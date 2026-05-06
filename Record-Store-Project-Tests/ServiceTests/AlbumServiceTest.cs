@@ -44,4 +44,26 @@ public class AlbumServiceTest
 
         Assert.That(actual.AlbumId, Is.EqualTo(1));
     }
+
+
+    [Test]
+    public void AddNewAlbum_ShouldReturnNewAlbum_WhenPostingNewAlbum()
+    {
+        var album = new Album { Title = "Speak Now", Artist = "Taylor Swift", ReleaseYear = 2010, Genre = "Country", Stock = 13 };
+        _albumModelMock.Setup(model => model.AddNewAlbum(album)).Returns(album);
+
+        var actual = _albumService.AddNewAlbum(album);
+        Assert.That(actual, Is.EqualTo(album));
+    }
+
+    [Test]
+    public void AddNewAlbum_ShouldReturnNewAlbum_WhenPostingNewAlbumTest2()
+    {
+        var album = new Album { Title = "Speak Now", Artist = "Taylor Swift", ReleaseYear = 2010, Genre = "Country", Stock = 13 };
+
+        _albumService.AddNewAlbum(album);
+
+        _albumModelMock.Verify(a => a.AddNewAlbum(album), Times.Once);
+        
+    }
 }

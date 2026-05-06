@@ -46,7 +46,7 @@ public class AlbumModelTest
             _dbContext.SaveChanges();
 
             var actual = album.GetAllAlbums();
-            Assert.That(actual[0].Title, Is.EqualTo("Fearless"));
+            Assert.That(actual[0].Genre, Is.EqualTo("Country"));
             Assert.That(actual[0].Artist, Is.EqualTo("Taylor Swift"));
         }
 
@@ -60,7 +60,7 @@ public class AlbumModelTest
 
             var newAlbum = new Album
             {
-                AlbumId = 1,
+                
                 Title = "Taylor Swift",
                 Artist = "Taylor Swift",
                 ReleaseYear = 2006,
@@ -73,6 +73,29 @@ public class AlbumModelTest
 
             var actual = album.GetAlbumById(1);
             Assert.That(actual.AlbumId, Is.EqualTo(1));
+        }
+    }
+    [Test]
+    public void AddNewAlbum_ShouldReturnAlbum_WhenPostingNewAlbum()
+    {
+        using (_dbContext)
+        {
+            AlbumModel album = new AlbumModel(_dbContext);
+
+            var newAlbum = new Album
+            {
+                Title = "Speak Now",
+                Artist = "Taylor Swift",
+                ReleaseYear = 2010,
+                Genre = "Country",
+                Stock = 13
+            };
+
+            _dbContext.Albums.Add(newAlbum);
+            _dbContext.SaveChanges();
+
+            var actual = album.AddNewAlbum(newAlbum);
+            Assert.That(actual, Is.EqualTo(newAlbum));
         }
     }
 }

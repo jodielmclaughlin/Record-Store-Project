@@ -6,6 +6,7 @@ namespace Record_Store_Project.Repository
     {
         List<Album> GetAllAlbums();
         Album GetAlbumById(int id);
+        Album AddNewAlbum(Album album);
     }
     public class AlbumModel : IAlbumModel
     {
@@ -28,6 +29,18 @@ namespace Record_Store_Project.Repository
             using (_dbContext)
             {
                 return _dbContext.Albums.FirstOrDefault(x => x.AlbumId == id);
+            }
+        }
+
+        public Album AddNewAlbum(Album album)
+        {
+            var albums = GetAllAlbums();
+
+            using (_dbContext)
+            {
+                album.AlbumId = albums.Count == 0 ? 1 : albums.Max(a => a.AlbumId) + 1;
+
+                return album;
             }
         }
     }
