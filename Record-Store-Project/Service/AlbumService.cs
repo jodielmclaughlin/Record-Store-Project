@@ -7,6 +7,7 @@ namespace Record_Store_Project.Service
     public interface IAlbumService
     {
         List<Album> GetAllAlbums();
+        Album GetAlbumById(int id);
     }
     public class AlbumService : IAlbumService
     {
@@ -20,6 +21,11 @@ namespace Record_Store_Project.Service
         public List<Album> GetAllAlbums()
         {
             return _albumModel.GetAllAlbums();
+        }
+
+        public Album GetAlbumById(int id)
+        {
+            return _albumModel.GetAlbumById(id);
         }
     }
 }

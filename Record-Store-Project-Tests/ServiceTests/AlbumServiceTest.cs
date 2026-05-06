@@ -30,4 +30,18 @@ public class AlbumServiceTest
 
         Assert.That(actual, Is.EqualTo(albumList));
     }
+
+    [Test]
+    public void GetAlbumById_ShouldReturnAlbum_WhenGivenId()
+    {
+        var album = new Album { AlbumId = 1, Title = "Taylor Swift", Artist = "Taylor Swift", ReleaseYear = 2006, Genre = "Country", Stock = 13 };
+        var albumList = new List<Album> { album };
+
+        _albumModelMock.Setup(model => model.GetAlbumById(1)).Returns(album);
+
+
+        var actual = _albumService.GetAlbumById(1);
+
+        Assert.That(actual.AlbumId, Is.EqualTo(1));
+    }
 }

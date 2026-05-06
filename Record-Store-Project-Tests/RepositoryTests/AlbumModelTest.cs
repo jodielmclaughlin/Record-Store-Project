@@ -35,6 +35,31 @@ public class AlbumModelTest
 
             var newAlbum = new Album
             {
+                Title = "Fearless",
+                Artist = "Taylor Swift",
+                ReleaseYear = 2008,
+                Genre = "Country",
+                Stock = 15
+            };
+
+            _dbContext.Albums.Add(newAlbum);
+            _dbContext.SaveChanges();
+
+            var actual = album.GetAllAlbums();
+            Assert.That(actual[0].Title, Is.EqualTo("Fearless"));
+            Assert.That(actual[0].Artist, Is.EqualTo("Taylor Swift"));
+        }
+
+    }
+    [Test]
+    public void GetAlbumById_ShouldReturnAlbum_WhenGivenId()
+    {
+        using (_dbContext)
+        {
+            AlbumModel album = new AlbumModel(_dbContext);
+
+            var newAlbum = new Album
+            {
                 AlbumId = 1,
                 Title = "Taylor Swift",
                 Artist = "Taylor Swift",
@@ -46,10 +71,8 @@ public class AlbumModelTest
             _dbContext.Albums.Add(newAlbum);
             _dbContext.SaveChanges();
 
-            var actual = album.GetAllAlbums();
-            Assert.That(actual.Count, Is.EqualTo(1));
-            Assert.That(actual[0].Title, Is.EqualTo("Taylor Swift"));
-            Assert.That(actual[0].Artist, Is.EqualTo("Taylor Swift"));
+            var actual = album.GetAlbumById(1);
+            Assert.That(actual.AlbumId, Is.EqualTo(1));
         }
     }
 }

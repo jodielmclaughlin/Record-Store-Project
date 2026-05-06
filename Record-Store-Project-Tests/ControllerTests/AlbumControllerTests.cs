@@ -21,13 +21,27 @@ namespace Record_Store_Project_Tests.ControllerTests
         [Test]
         public void GetAllAlbums_ShouldReturnStatusCode200()
         {
-            var album = new Album { AlbumId = 1, Title = "Taylor Swift", Artist = "Taylor Swift", ReleaseYear = 2006, Genre = "Country", Stock = 13 };
+            var album = new Album { Title = "Taylor Swift", Artist = "Taylor Swift", ReleaseYear = 2006, Genre = "Country", Stock = 13 };
 
             var albumList = new List<Album> { album };
 
             _albumServiceMock.Setup(serv => serv.GetAllAlbums()).Returns(albumList);
 
             var actual = (OkObjectResult)_albumController.GetAllAlbums();
+
+            Assert.That(actual.StatusCode, Is.EqualTo(200));
+        }
+
+        [Test]
+        public void GetAlbumById_SShouldReturnStatusCode200_WhenGivenId()
+        {
+            var album = new Album { Title = "Taylor Swift", Artist = "Taylor Swift", ReleaseYear = 2006, Genre = "Country", Stock = 13 };
+
+            var albumList = new List<Album> { album };
+
+            _albumServiceMock.Setup(serv => serv.GetAlbumById(1)).Returns(album);
+
+            var actual = (OkObjectResult)_albumController.GetAlbumById(1);
 
             Assert.That(actual.StatusCode, Is.EqualTo(200));
         }
