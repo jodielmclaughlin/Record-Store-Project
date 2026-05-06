@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36915.13 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Record-Store-Project", "Record-Store-Project\Record-Store-Project.csproj", "{C38C7656-D73E-414D-86A4-8B5E0AA42078}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Record-Store-Project-Tests", "Record-Store-Project-Tests\Record-Store-Project-Tests.csproj", "{BF22B99B-6548-4684-A8CE-855C82ED4949}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C38C7656-D73E-414D-86A4-8B5E0AA42078}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C38C7656-D73E-414D-86A4-8B5E0AA42078}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C38C7656-D73E-414D-86A4-8B5E0AA42078}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF22B99B-6548-4684-A8CE-855C82ED4949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF22B99B-6548-4684-A8CE-855C82ED4949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF22B99B-6548-4684-A8CE-855C82ED4949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF22B99B-6548-4684-A8CE-855C82ED4949}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

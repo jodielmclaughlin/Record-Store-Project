@@ -1,8 +1,10 @@
-﻿namespace Record_Store_Project.Repository
+﻿using Record_Store_Project.DataModels;
+
+namespace Record_Store_Project.Repository
 {
     public interface IAlbumModel
     {
-
+        List<Album> GetAllAlbums();
     }
     public class AlbumModel : IAlbumModel
     {
@@ -13,6 +15,12 @@
             _dbContext = db;
         }
 
-
+        public List<Album> GetAllAlbums()
+        {
+            using (_dbContext)
+            {
+                return _dbContext.Albums.ToList();
+            }
+        }
     }
 }

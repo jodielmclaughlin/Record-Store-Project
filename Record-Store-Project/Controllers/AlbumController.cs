@@ -14,6 +14,11 @@ namespace Record_Store_Project.Controllers
             _albumService = albumService;
         }
 
-
+        [HttpGet]
+        public IActionResult GetAllAlbums()
+        {
+            var albums = _albumService.GetAllAlbums();
+            return Ok(albums);
+        }
     }
 }
