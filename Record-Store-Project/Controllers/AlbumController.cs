@@ -91,5 +91,18 @@ namespace Record_Store_Project.Controllers
 
             return Ok(albums);
         }
+        [HttpGet("genre/{genre}")]
+        public async Task<IActionResult> GetAlbumsByGenre(string genre)
+        {
+            var albums = await _albumService.GetAlbumsByGenre(genre);
+
+            if (!albums.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(albums);
+        }
+
     }
 }

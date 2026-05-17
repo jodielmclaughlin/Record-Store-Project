@@ -12,6 +12,7 @@ namespace Record_Store_Project.Repository
         Task<Album> DeleteAlbum(int id);
         Task<List<Album>> GetAlbumsByArtist(string artist);
         Task<List<Album>> GetAlbumsByYear(int year);
+        Task<List<Album>> GetAlbumsByGenre(string genre);
     }
     public class AlbumModel : IAlbumModel
     {
@@ -95,6 +96,15 @@ namespace Record_Store_Project.Repository
             {
                 return await _dbContext.Albums
                     .Where(a => a.ReleaseYear == year)
+                    .ToListAsync();
+            }
+        }
+        public async Task<List<Album>> GetAlbumsByGenre(string genre)
+        {
+            using (_dbContext)
+            {
+                return await _dbContext.Albums
+                    .Where(a => a.Genre.ToLower() == genre.ToLower())
                     .ToListAsync();
             }
         }
