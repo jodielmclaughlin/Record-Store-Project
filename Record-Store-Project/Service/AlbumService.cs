@@ -13,6 +13,8 @@ namespace Record_Store_Project.Service
         Task<Album> DeleteAlbum(int id);
         Task<List<Album>> GetAlbumsByArtist(string artist);
         Task<List<Album>> GetAlbumsByYear(int year);
+        Task<List<Album>> GetAlbumsByGenre(string genre);
+
     }
     public class AlbumService : IAlbumService
     {
@@ -65,6 +67,9 @@ namespace Record_Store_Project.Service
         {
             return await _albumModel.GetAlbumsByYear(year);
         }
-
+        public async Task<List<Album>> GetAlbumsByGenre(string genre)
+        {
+            return await _albumModel.GetAlbumsByGenre(genre);
+        }
     }
 }
