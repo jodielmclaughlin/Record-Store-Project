@@ -11,6 +11,7 @@ namespace Record_Store_Project.Service
         Task<Album> AddNewAlbum(Album album);
         Task<Album> UpdateAlbum(int id, UpdatedAlbumRequest request);
         Task<Album> DeleteAlbum(int id);
+        Task<List<Album>> GetAlbumsByArtist(string artist);
     }
     public class AlbumService : IAlbumService
     {
@@ -53,6 +54,11 @@ namespace Record_Store_Project.Service
         public async Task<Album> DeleteAlbum(int id)
         {
             return await _albumModel.DeleteAlbum(id);
+        }
+
+        public async Task<List<Album>> GetAlbumsByArtist(string artist)
+        {
+            return await _albumModel.GetAlbumsByArtist(artist);
         }
     }
 }

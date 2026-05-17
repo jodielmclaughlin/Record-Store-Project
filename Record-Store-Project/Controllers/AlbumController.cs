@@ -15,6 +15,12 @@ namespace Record_Store_Project.Controllers
             _albumService = albumService;
         }
 
+        [HttpGet("/health")]
+        public IActionResult Health()
+        {
+            return Ok(new { status = "Healthy" });
+        }
+
         [HttpGet]
         public IActionResult GetAllAlbums()
         {
@@ -59,6 +65,19 @@ namespace Record_Store_Project.Controllers
                 return NotFound();
             }
             return Ok(deleteAlbum);
+        }
+
+        [HttpGet("artist/{artist}")]
+        public async Task<IActionResult> GetAlbumsByArtist(string artist)
+        {
+            var albums = await _albumService.GetAlbumsByArtist(artist);
+
+            if (!albums.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(albums);
         }
     }
 }
