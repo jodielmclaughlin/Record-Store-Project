@@ -79,5 +79,17 @@ namespace Record_Store_Project.Controllers
 
             return Ok(albums);
         }
+        [HttpGet("year/{year}")]
+        public async Task<IActionResult> GetAlbumsByYear(int year)
+        {
+            var albums = await _albumService.GetAlbumsByYear(year);
+
+            if (!albums.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(albums);
+        }
     }
 }
