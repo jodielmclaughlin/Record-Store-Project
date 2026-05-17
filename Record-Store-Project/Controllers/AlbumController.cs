@@ -31,7 +31,24 @@ namespace Record_Store_Project.Controllers
         [HttpGet("{id}")]
         public IActionResult GetAlbumById(int id) 
         {
+            if (id <= 0)
+            {
+                return BadRequest(new ErrorResponse
+                {
+                    StatusCode = 400,
+                    Message = "Invalid album ID."
+                });
+            }
             var albumId = _albumService.GetAlbumById(id);
+            
+            if (albumId == null)
+            {
+                return NotFound(new ErrorResponse
+                {
+                    StatusCode = 404,
+                    Message = "Album not found."
+                });
+            }
             return Ok(albumId);
         }
 
@@ -59,10 +76,22 @@ namespace Record_Store_Project.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAlbum(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest(new ErrorResponse
+                {
+                    StatusCode = 400,
+                    Message = "Invalid album ID."
+                });
+            }
             var deleteAlbum = await _albumService.DeleteAlbum(id);
             if (deleteAlbum == null)
             {
-                return NotFound();
+                return NotFound(new ErrorResponse
+                {
+                    StatusCode = 404,
+                    Message = "Album not found."
+                });
             }
             return Ok(deleteAlbum);
         }
@@ -74,7 +103,11 @@ namespace Record_Store_Project.Controllers
 
             if (!albums.Any())
             {
-                return NotFound();
+                return NotFound(new ErrorResponse
+                {
+                    StatusCode = 404,
+                    Message = "Albums by this artist not found."
+                });
             }
 
             return Ok(albums);
@@ -86,7 +119,11 @@ namespace Record_Store_Project.Controllers
 
             if (!albums.Any())
             {
-                return NotFound();
+                return NotFound(new ErrorResponse
+                {
+                    StatusCode = 404,
+                    Message = "Albums from this year not found."
+                });
             }
 
             return Ok(albums);
@@ -98,7 +135,11 @@ namespace Record_Store_Project.Controllers
 
             if (!albums.Any())
             {
-                return NotFound();
+                return NotFound(new ErrorResponse
+                {
+                    StatusCode = 404,
+                    Message = "Albums in this genre not found."
+                });
             }
 
             return Ok(albums);
@@ -110,7 +151,11 @@ namespace Record_Store_Project.Controllers
 
             if (album == null)
             {
-                return NotFound();
+                return NotFound(new ErrorResponse
+                {
+                    StatusCode = 404,
+                    Message = "Album not found."
+                });
             }
 
             return Ok(album);

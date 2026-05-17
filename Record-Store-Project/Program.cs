@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Record_Store_Project.Middleware;
 using Record_Store_Project.Repository;
 using Record_Store_Project.Service;
 
@@ -24,7 +25,7 @@ namespace Record_Store_Project
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-
+            app.UseMiddleware<ExceptionMiddleware>();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
