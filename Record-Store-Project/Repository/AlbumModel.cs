@@ -13,6 +13,7 @@ namespace Record_Store_Project.Repository
         Task<List<Album>> GetAlbumsByArtist(string artist);
         Task<List<Album>> GetAlbumsByYear(int year);
         Task<List<Album>> GetAlbumsByGenre(string genre);
+        Task<Album?> GetAlbumByTitle(string title);
     }
     public class AlbumModel : IAlbumModel
     {
@@ -106,6 +107,14 @@ namespace Record_Store_Project.Repository
                 return await _dbContext.Albums
                     .Where(a => a.Genre.ToLower() == genre.ToLower())
                     .ToListAsync();
+            }
+        }
+        public async Task<Album?> GetAlbumByTitle(string title)
+        {
+            using (_dbContext)
+            {
+                return await _dbContext.Albums
+                    .FirstOrDefaultAsync(a => a.Title.ToLower() == title.ToLower());
             }
         }
 

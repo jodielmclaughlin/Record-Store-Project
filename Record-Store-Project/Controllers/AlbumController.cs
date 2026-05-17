@@ -103,6 +103,17 @@ namespace Record_Store_Project.Controllers
 
             return Ok(albums);
         }
+        [HttpGet("title/{title}")]
+        public async Task<IActionResult> GetAlbumByTitle(string title)
+        {
+            var album = await _albumService.GetAlbumByTitle(title);
 
+            if (album == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(album);
+        }
     }
 }

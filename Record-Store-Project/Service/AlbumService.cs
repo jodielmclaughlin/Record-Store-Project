@@ -14,6 +14,7 @@ namespace Record_Store_Project.Service
         Task<List<Album>> GetAlbumsByArtist(string artist);
         Task<List<Album>> GetAlbumsByYear(int year);
         Task<List<Album>> GetAlbumsByGenre(string genre);
+        Task<Album?> GetAlbumByTitle(string title);
 
     }
     public class AlbumService : IAlbumService
@@ -70,6 +71,10 @@ namespace Record_Store_Project.Service
         public async Task<List<Album>> GetAlbumsByGenre(string genre)
         {
             return await _albumModel.GetAlbumsByGenre(genre);
+        }
+        public async Task<Album?> GetAlbumByTitle(string title)
+        {
+            return await _albumModel.GetAlbumByTitle(title);
         }
     }
 }
