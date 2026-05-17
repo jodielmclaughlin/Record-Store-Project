@@ -1,4 +1,5 @@
-﻿using Record_Store_Project.DataModels;
+﻿using Microsoft.EntityFrameworkCore;
+using Record_Store_Project.DataModels;
 
 namespace Record_Store_Project.Repository
 {
@@ -9,6 +10,7 @@ namespace Record_Store_Project.Repository
         Task<Album> AddNewAlbum(Album album);
         Task<Album> UpdateAlbum(int id, Album album);
         Task<Album> DeleteAlbum(int id);
+        Task<List<Album>> GetAlbumsByArtist(string artist);
     }
     public class AlbumModel : IAlbumModel
     {
@@ -77,5 +79,16 @@ namespace Record_Store_Project.Repository
                 return albumToDelete;
             }
         }
+        public async Task<List<Album>> GetAlbumsByArtist(string artist)
+        {
+            using (_dbContext)
+            {
+                return await _dbContext.Albums
+                .Where(a => a.Artist.ToLower() == artist.ToLower())
+                .ToListAsync();
+            }
+        }
+
+
     }
 }
