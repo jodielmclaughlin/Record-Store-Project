@@ -30,11 +30,35 @@ namespace Record_Store_Project.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewAlbum(Album album)
+        public async Task<IActionResult> AddNewAlbum(Album album)
         {
-            var newAlbum = _albumService.AddNewAlbum(album);
+            var newAlbum = await _albumService.AddNewAlbum(album);
             return Created("", newAlbum);
 
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAlbum(int id, UpdatedAlbumRequest request)
+        {
+            var updatedAlbum = await _albumService.UpdateAlbum(id, request);
+            
+            if (updatedAlbum == null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(request);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAlbum(int id)
+        {
+            var deleteAlbum = await _albumService.DeleteAlbum(id);
+            if (deleteAlbum == null)
+            {
+                return NotFound();
+            }
+            return Ok(deleteAlbum);
         }
     }
 }

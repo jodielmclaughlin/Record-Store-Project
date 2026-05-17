@@ -58,5 +58,47 @@ namespace Record_Store_Project_Tests.ControllerTests
             Assert.That(actual.StatusCode, Is.EqualTo(201));
 
         }
+        [Test]
+        public void UpdateAlbum_ReturnsOk_WhenAlbumUpdated()
+        {
+            var request = new UpdatedAlbumRequest
+            {
+                
+                Title = "Speak Now",
+                Artist = "Taylor Swift",
+                ReleaseYear = 2010,
+                Genre = "Pop",
+                Stock = 13
+            };
+
+            var updatedAlbum = new Album
+            {
+                
+                Title = request.Title,
+                Artist = request.Artist,
+                ReleaseYear = request.ReleaseYear,
+                Genre = request.Genre,
+                Stock = request.Stock
+            };
+
+            _albumServiceMock.Setup(serv => serv.UpdateAlbum(3, request)).Returns(updatedAlbum);
+
+
+            var actual = (OkObjectResult)_albumController.UpdateAlbum(3, request);
+
+            Assert.That(actual.StatusCode, Is.EqualTo(200));
+        }
+        [Test]
+        public void UpdateAlbum_ReturnsNotFound_WhenAlbumDoesNotExist()
+        {
+            var request = new UpdatedAlbumRequest();
+
+            _albumServiceMock.Setup(serv => serv.UpdateAlbum(99, request)).Returns((Album)null);
+
+            var actual = (NotFoundResult)_albumController.UpdateAlbum(99, request);
+
+            Assert.That(actual.StatusCode, Is.EqualTo(404));
+        }
+
     }
 }

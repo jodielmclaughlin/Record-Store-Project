@@ -98,4 +98,28 @@ public class AlbumModelTest
             Assert.That(actual, Is.EqualTo(newAlbum));
         }
     }
+
+    [Test]
+    public void UpdateAlbum_ShouldUpdateAlbum()
+    {
+        using (_dbContext)
+        {
+            AlbumModel album = new AlbumModel(_dbContext);
+
+            var updatedAlbum = new Album
+            {
+                Title = "Updated Album",
+                Artist = "Updated Artist",
+                ReleaseYear = 2020,
+                Genre = "Pop",
+                Stock = 5
+            };
+            _dbContext.Albums.Add(updatedAlbum);
+            _dbContext.SaveChanges();
+
+            var actual = album.UpdateAlbum(1, updatedAlbum);
+
+            Assert.That(actual.Title, Is.EqualTo("Updated Album"));
+        }
+    }
 }

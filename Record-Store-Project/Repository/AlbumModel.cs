@@ -6,7 +6,9 @@ namespace Record_Store_Project.Repository
     {
         List<Album> GetAllAlbums();
         Album GetAlbumById(int id);
-        Album AddNewAlbum(Album album);
+        Task<Album> AddNewAlbum(Album album);
+        Task<Album> UpdateAlbum(int id, Album album);
+        Task<Album> DeleteAlbum(int id);
     }
     public class AlbumModel : IAlbumModel
     {
@@ -32,15 +34,47 @@ namespace Record_Store_Project.Repository
             }
         }
 
-        public Album AddNewAlbum(Album album)
+        public async Task<Album> AddNewAlbum(Album album)
         {
-            var albums = GetAllAlbums();
+            await _dbContext.Albums.AddAsync(album);
+            await _dbContext.SaveChangesAsync();
 
+            return album;
+        }
+
+        public async Task<Album> UpdateAlbum (int id, Album album)
+        {
             using (_dbContext)
             {
-                album.AlbumId = albums.Count == 0 ? 1 : albums.Max(a => a.AlbumId) + 1;
+                var albumToUpdate = _dbContext.Albums.FirstOrDefault(a => a.AlbumId == id);
 
-                return album;
+                if (albumToUpdate == null)
+                {
+                    return null;
+
+                }
+
+                albumToUpdate.Title = album.Title;
+                albumToUpdate.Artist = album.Artist;
+                albumToUpdate.ReleaseYear = album.ReleaseYear;
+                albumToUpdate.Genre = album.Genre;
+                albumToUpdate.Stock = album.Stock;
+                await _dbContext.SaveChangesAsync();
+                return albumToUpdate;
+
+            }
+        }
+        public async Task<Album> DeleteAlbum (int id)
+        {
+           
+            using (_dbContext)
+            {
+                var albumToDelete = _dbContext.Albums.FirstOrDefault(a => a.AlbumId == id);
+                _dbContext.Albums.Remove(albumToDelete);
+
+                await _dbContext.SaveChangesAsync();
+
+                return albumToDelete;
             }
         }
     }
