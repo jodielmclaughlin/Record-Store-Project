@@ -62,4 +62,4 @@ The aim of this project was to build a production-quality backend API that can:
 ## Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/jodielmclaughlin/Record-Store-Project.git>
